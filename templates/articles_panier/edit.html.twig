@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ArticlesPanier{% endblock %}
+
+{% block body %}
+    <h1>Edit ArticlesPanier</h1>
+
+    {{ include('articles_panier/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_articles_panier_index') }}">back to list</a>
+
+    {{ include('articles_panier/_delete_form.html.twig') }}
+{% endblock %}
