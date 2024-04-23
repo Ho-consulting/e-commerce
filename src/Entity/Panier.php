@@ -15,53 +15,25 @@ class Panier
     #[ORM\Column]
     private ?int $id = null;
 
-    /**
-     * @var Collection<int, ArticlesPanier>
-     */
-    #[ORM\OneToMany(targetEntity: ArticlesPanier::class, mappedBy: 'panier')]
-    private Collection $articles;
 
     #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist', 'remove'])]
     private ?User $user = null;
 
+    /**
+     * @var Collection<int, ArticlesPanier>
+     */
+    #[ORM\OneToMany(targetEntity: ArticlesPanier::class, mappedBy: 'panier')]
+    private Collection $articlesPanier;
+
     public function __construct()
     {
-        $this->articles = new ArrayCollection();
+        $this->articlesPanier = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection<int, ArticlesPanier>
-     */
-    public function getArticles(): Collection
-    {
-        return $this->articles;
-    }
-
-    public function addArticle(ArticlesPanier $article): static
-    {
-        if (!$this->articles->contains($article)) {
-            $this->articles->add($article);
-            $article->setPanier($this);
-        }
-
-        return $this;
-    }
-
-    public function removeArticle(ArticlesPanier $article): static
-    {
-        if ($this->articles->removeElement($article)) {
-            // set the owning side to null (unless already changed)
-            if ($article->getPanier() === $this) {
-                $article->setPanier(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getUser(): ?User
@@ -85,4 +57,36 @@ class Panier
 
         return $this;
     }
+
+    /**
+     * @return Collection<int, ArticlesPanier>
+     */
+    public function getArticlesPanier(): Collection
+    {
+        return $this->articlesPanier;
+    }
+
+    public function addArticlesPanier(ArticlesPanier $articlesPanier): static
+    {
+        if (!$this->articlesPanier->contains($articlesPanier)) {
+            $this->articlesPanier->add($articlesPanier);
+            $articlesPanier->setPanier($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticlesPanier(ArticlesPanier $articlesPanier): static
+    {
+        if ($this->articlesPanier->removeElement($articlesPanier)) {
+            // set the owning side to null (unless already changed)
+            if ($articlesPanier->getPanier() === $this) {
+                $articlesPanier->setPanier(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

@@ -20,10 +20,10 @@ class ArticlesPanier
     private ?int $quantity = null;
 
     #[ORM\ManyToOne(inversedBy: 'articles')]
-    private ?Panier $panier = null;
-
-    #[ORM\ManyToOne(inversedBy: 'articles')]
     private ?Commande $commande = null;
+
+    #[ORM\ManyToOne(inversedBy: 'articlesPanier')]
+    private ?Panier $panier = null;
 
     public function getId(): ?int
     {
@@ -54,18 +54,6 @@ class ArticlesPanier
         return $this;
     }
 
-    public function getPanier(): ?Panier
-    {
-        return $this->panier;
-    }
-
-    public function setPanier(?Panier $panier): static
-    {
-        $this->panier = $panier;
-
-        return $this;
-    }
-
     public function getCommande(): ?Commande
     {
         return $this->commande;
@@ -74,6 +62,18 @@ class ArticlesPanier
     public function setCommande(?Commande $commande): static
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): static
+    {
+        $this->panier = $panier;
 
         return $this;
     }

@@ -14,6 +14,26 @@
         </tbody>
     </table>
 
+    <h1>Articles présents</h1>
+
+    {% for article in panier.getArticlesPanier %}
+
+        <table class="table">
+        <tbody>
+            <tr>
+                <th>produits</th>
+                <td>{{ article.getProduit.getName}}</td>
+            </tr>
+            <tr>
+                <th>Quantité</th>
+                <td>{{ article.quantity}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% endfor %}
+
+
     <a href="{{ path('app_panier_index') }}">back to list</a>
 
     <a href="{{ path('app_panier_edit', {'id': panier.id}) }}">edit</a>

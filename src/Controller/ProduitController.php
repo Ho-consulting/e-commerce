@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Form\ProduitType;
 use App\Repository\ProduitRepository;
@@ -56,6 +57,10 @@ class ProduitController extends AbstractController
             $articlesPanier->setProduit($produit);
             $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
 
+            $panier = new Panier();
+            $panier->addArticle($articlesPanier);
+
+            $entityManager->persist($panier);
             $entityManager->persist($articlesPanier);
             $entityManager->flush();
 
