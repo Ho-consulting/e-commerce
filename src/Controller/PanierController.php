@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Form\CommandeType;
+use App\Entity\Commande;
+
 use App\Entity\Panier;
 use App\Form\PanierType;
 use App\Repository\PanierRepository;
@@ -42,13 +45,40 @@ class PanierController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_panier_show', methods: ['GET'])]
-    public function show(Panier $panier): Response
+
+    // ******************************************************************************************************************************************
+
+    #[Route('/{id}', name: 'app_panier_show', methods: ['GET', 'POST'])]
+    public function show(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $form = $this->createForm(CommandeType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $commande = new Commande();
+
+            foreach ($panier->getArticlesPanier() as &$articlePanier) {
+                $commande->addArticle($articlePanier);
+                $panier->removeArticlesPanier($articlePanier);
+            } 
+
+            $entityManager->persist($commande);
+            $entityManager->remove($panier);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('panier/show.html.twig', [
             'panier' => $panier,
+            'form' => $form
         ]);
     }
+
+
+    // ******************************************************************************************************************************************
+
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response

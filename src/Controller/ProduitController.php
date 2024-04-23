@@ -58,7 +58,11 @@ class ProduitController extends AbstractController
             $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
 
             $panier = new Panier();
-            $panier->addArticle($articlesPanier);
+            $panier->addArticlesPanier($articlesPanier);
+
+            // restes : 
+            // tester si un panier existe déja pour un utilisateur (si oui on ajoute juste le produit au panier si non on crée un nouveau panier)
+            // 
 
             $entityManager->persist($panier);
             $entityManager->persist($articlesPanier);
