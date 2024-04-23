@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+
+
 use App\Entity\ArticlesPanier;
 use App\Entity\Commande;
 use App\Entity\Panier;
@@ -17,10 +19,9 @@ class ArticlesPanierType extends AbstractType
     {
         $builder
             ->add('quantity')
-            ->add('produit', EntityType::class, [
-                'class' => Produit::class,
-                'choice_label' => 'id',
-            ])
+
+
+            /*
             ->add('panier', EntityType::class, [
                 'class' => Panier::class,
                 'choice_label' => 'id',
@@ -29,6 +30,7 @@ class ArticlesPanierType extends AbstractType
                 'class' => Commande::class,
                 'choice_label' => 'id',
             ])
+            */
         ;
     }
 

@@ -11,6 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+use App\Entity\ArticlesPanier;
+use App\Form\ArticlesPanierType;
+use App\Repository\ArticlesPanierRepository;
+
 #[Route('/produit')]
 class ProduitController extends AbstractController
 {
@@ -42,11 +46,27 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produit_show', methods: ['GET'])]
-    public function show(Produit $produit): Response
+    #[Route('/{id}', name: 'app_produit_show', methods: ['GET', 'POST'])]
+    public function show(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
+
+        $form = $this->createForm(ArticlesPanierType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $articlesPanier = new ArticlesPanier();
+            $articlesPanier->setProduit($produit);
+            $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
+
+            $entityManager->persist($articlesPanier);
+            $entityManager->flush();
+
+           // return $this->redirectToRoute('app_articles_panier_index', [], Response::HTTP_SEE_OTHER);
+        }
+
         return $this->render('produit/show.html.twig', [
             'produit' => $produit,
+            'form' => $form,
         ]);
     }
 
