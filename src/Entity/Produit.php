@@ -34,6 +34,9 @@ class Produit
     #[ORM\OneToMany(targetEntity: ArticlesPanier::class, mappedBy: 'produit')]
     private Collection $articlesPaniers;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $availible = null;
+
     public function __construct()
     {
         $this->articlesPaniers = new ArrayCollection();
@@ -118,6 +121,18 @@ class Produit
                 $articlesPanier->setProduit(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isAvailible(): ?bool
+    {
+        return $this->availible;
+    }
+
+    public function setAvailible(?bool $availible): static
+    {
+        $this->availible = $availible;
 
         return $this;
     }
