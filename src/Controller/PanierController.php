@@ -61,7 +61,7 @@ class PanierController extends AbstractController
             foreach ($panier->getArticlesPanier() as &$articlePanier) {
                 $commande->addArticle($articlePanier);
                 $panier->removeArticlesPanier($articlePanier);
-            } 
+            }
 
             $entityManager->persist($commande);
             $entityManager->remove($panier);
@@ -75,7 +75,6 @@ class PanierController extends AbstractController
             'form' => $form
         ]);
     }
-
 
     // ******************************************************************************************************************************************
 

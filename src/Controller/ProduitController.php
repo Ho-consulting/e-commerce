@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Controller;
-
 use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Form\ProduitType;
@@ -57,12 +56,11 @@ class ProduitController extends AbstractController
             $articlesPanier->setProduit($produit);
             $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
 
-            $panier = new Panier();
-            $panier->addArticlesPanier($articlesPanier);
-
             // restes : 
             // tester si un panier existe déja pour un utilisateur (si oui on ajoute juste le produit au panier si non on crée un nouveau panier)
-            // 
+
+            $panier = new Panier();
+            $panier->addArticlesPanier($articlesPanier);
 
             $entityManager->persist($panier);
             $entityManager->persist($articlesPanier);
