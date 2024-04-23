@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -46,6 +48,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $town = null;
+
+    #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Panier $panier = null;
+
+    /**
+     * @var Collection<int, Commande>
+     */
+    #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'user')]
+    private Collection $commande;
+
+    public function __construct()
+    {
+        $this->commande = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -178,6 +194,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setTown(?string $town): static
     {
         $this->town = $town;
+
+        return $this;
+    }
+
+    public function getPanier(): ?Panier
+    {
+        return $this->panier;
+    }
+
+    public function setPanier(?Panier $panier): static
+    {
+        $this->panier = $panier;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commande>
+     */
+    public function getCommande(): Collection
+    {
+        return $this->commande;
+    }
+
+    public function addCommande(Commande $commande): static
+    {
+        if (!$this->commande->contains($commande)) {
+            $this->commande->add($commande);
+            $commande->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCommande(Commande $commande): static
+    {
+        if ($this->commande->removeElement($commande)) {
+            // set the owning side to null (unless already changed)
+            if ($commande->getUser() === $this) {
+                $commande->setUser(null);
+            }
+        }
 
         return $this;
     }

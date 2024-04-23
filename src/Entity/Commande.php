@@ -28,6 +28,9 @@ class Commande
     #[ORM\OneToMany(targetEntity: ArticlesPanier::class, mappedBy: 'commande')]
     private Collection $articles;
 
+    #[ORM\ManyToOne(inversedBy: 'commande')]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -88,6 +91,18 @@ class Commande
                 $article->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

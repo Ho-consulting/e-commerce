@@ -21,6 +21,9 @@ class Panier
     #[ORM\OneToMany(targetEntity: ArticlesPanier::class, mappedBy: 'panier')]
     private Collection $articles;
 
+    #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist', 'remove'])]
+    private ?User $user = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -57,6 +60,28 @@ class Panier
                 $article->setPanier(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($user === null && $this->user !== null) {
+            $this->user->setPanier(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($user !== null && $user->getPanier() !== $this) {
+            $user->setPanier($this);
+        }
+
+        $this->user = $user;
 
         return $this;
     }
