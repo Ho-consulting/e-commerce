@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+
 use App\Form\CommandeType;
 use App\Entity\Commande;
-
 use App\Entity\Panier;
 use App\Form\PanierType;
 use App\Repository\PanierRepository;
@@ -56,9 +56,11 @@ class PanierController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
+            // mettre en place une vérification de l'existance des produits dans le stock avant de créer la commande
+            
             $commande = new Commande();
-
-            foreach ($panier->getArticlesPanier() as &$articlePanier) {
+            foreach ($panier->getArticlesPanier() as &$articlePanier) { 
                 $commande->addArticle($articlePanier);
                 $panier->removeArticlesPanier($articlePanier);
             }
@@ -69,6 +71,8 @@ class PanierController extends AbstractController
 
             return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
         }
+
+        // afficher dans le panier seulement les produits qui existent
 
         return $this->render('panier/show.html.twig', [
             'panier' => $panier,

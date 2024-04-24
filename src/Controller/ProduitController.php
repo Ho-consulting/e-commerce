@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controller;
+
 use App\Entity\Panier;
 use App\Entity\Produit;
 use App\Form\ProduitType;
@@ -20,7 +21,7 @@ class ProduitController extends AbstractController
     public function index(ProduitRepository $produitRepository): Response
     {
         return $this->render('produit/index.html.twig', [
-            'produits' => $produitRepository->findAll(),
+            'produits' => $produitRepository->findBy(['availible' => true]),
         ]);
     }
 
@@ -48,6 +49,7 @@ class ProduitController extends AbstractController
     public function show(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
 
+        
         $form = $this->createForm(ArticlesPanierType::class);
         $form->handleRequest($request);
 
@@ -56,10 +58,14 @@ class ProduitController extends AbstractController
             $articlesPanier->setProduit($produit);
             $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
 
-            // restes : 
-            // tester si un panier existe déja pour un utilisateur (si oui on ajoute juste le produit au panier si non on crée un nouveau panier)
+            
+            if ($this->getUser() and $this->getUser()->getPanier() == null) {
+                $panier = new Panier();
+            } else {
+                $panier = $this->getUser()->getPanier();
+            }
 
-            $panier = new Panier();
+            
             $panier->addArticlesPanier($articlesPanier);
 
             $entityManager->persist($panier);
@@ -97,10 +103,12 @@ class ProduitController extends AbstractController
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->getPayload()->get('_token'))) {
-            $entityManager->remove($produit);
+            $produit->setAvailible(false);
+            //$entityManager->remove($produit);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
 }
+
