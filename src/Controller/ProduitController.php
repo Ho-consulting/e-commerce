@@ -25,6 +25,17 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+    // cette action pour l'utilisation des admins
+    #[Route('/produit/epuise', name: 'app_produit_epuise', methods: ['GET'])]
+    public function index_epuise(ProduitRepository $produitRepository): Response
+    {
+        return $this->render('produit/index.html.twig', [
+            'produits' => $produitRepository->findBy(['availible' => false]),
+        ]);
+    }
+
+
     #[Route('/produit/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -33,6 +44,8 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $produit->setAvailible(true);
             $entityManager->persist($produit);
             $entityManager->flush();
 
@@ -65,7 +78,6 @@ class ProduitController extends AbstractController
                 $panier = $this->getUser()->getPanier();
             }
 
-            
             $panier->addArticlesPanier($articlesPanier);
 
             $entityManager->persist($panier);
@@ -99,16 +111,31 @@ class ProduitController extends AbstractController
         ]);
     }
 
+
+    #[Route('/produit/{id}/availible', name: 'app_produit_not_availible')]
+    public function notavailible(Produit $produit, EntityManagerInterface $entityManager): Response
+    {
+
+        $produit->setAvailible(false);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER); 
+    }
+
+
+
+    /*
     #[Route('/produit/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
+          
         if ($this->isCsrfTokenValid('delete'.$produit->getId(), $request->getPayload()->get('_token'))) {
-            $produit->setAvailible(false);
-            //$entityManager->remove($produit);
+            $entityManager->remove($produit);
             $entityManager->flush();
         }
-
+        
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
+    */
 }
 

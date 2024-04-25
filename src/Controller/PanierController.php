@@ -61,9 +61,12 @@ class PanierController extends AbstractController
             
             $commande = new Commande();
             foreach ($panier->getArticlesPanier() as &$articlePanier) { 
+
+                //diminuer la quantité de stock des produits commandés 
                 $commande->addArticle($articlePanier);
                 $panier->removeArticlesPanier($articlePanier);
             }
+
 
             $entityManager->persist($commande);
             $entityManager->remove($panier);
@@ -71,8 +74,6 @@ class PanierController extends AbstractController
 
             return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
         }
-
-        // afficher dans le panier seulement les produits qui existent
 
         return $this->render('panier/show.html.twig', [
             'panier' => $panier,

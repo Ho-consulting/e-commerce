@@ -18,24 +18,23 @@
 
     {% for article in panier.getArticlesPanier %}
         {% if article.getProduit.isAvailible %}
-
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>produits</th>
-                    <td>{{ article.getProduit.getName}}</td>
-                </tr>
-                <tr>
-                    <th>Quantité</th>
-                    <td>{{ article.quantity}}</td>
-                </tr>
-            </tbody>
-        </table>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>produits</th>
+                        <td>{{ article.getProduit.getName}}</td>
+                    </tr>
+                    <tr>
+                        <th>Quantité</th>
+                        <td>{{ article.quantity}}</td>
+                    </tr>
+                </tbody>
+            </table>
         {% endif %}
 
     {% endfor %}
 
-    {{ form_start(form) }}
+        {{ form_start(form) }}
             {{ form_widget(form) }}
              <button class="btn btn-primary">{{ button_label|default('Passer la commande') }}</button> 
         {{ form_end(form) }}

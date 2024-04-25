@@ -41,5 +41,12 @@
 
     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
 
-    {{ include('produit/_delete_form.html.twig') }}
+    <a href="{{ path('app_produit_not_availible', {'id': produit.id}) }}" class="btn">desactiver</a> 
+
+
+
+   {# {{ include('produit/_delete_form.html.twig') }} #}
+
+
+   
 {% endblock %}
