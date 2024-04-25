@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Entity\ArticlesPanier;
 use App\Form\ArticlesPanierType;
 
-
+#[Route('/produit')]
 class ProduitController extends AbstractController
 {
     #[Route('/', name: 'app_produit_index', methods: ['GET'])]
@@ -27,7 +27,7 @@ class ProduitController extends AbstractController
 
 
     // cette action pour l'utilisation des admins
-    #[Route('/produit/epuise', name: 'app_produit_epuise', methods: ['GET'])]
+    #[Route('/epuise', name: 'app_produit_epuise', methods: ['GET'])]
     public function index_epuise(ProduitRepository $produitRepository): Response
     {
         return $this->render('produit/index.html.twig', [
@@ -36,7 +36,7 @@ class ProduitController extends AbstractController
     }
 
 
-    #[Route('/produit/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_produit_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $produit = new Produit();
@@ -58,7 +58,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{id}', name: 'app_produit_show', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_produit_show', methods: ['GET', 'POST'])]
     public function show(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -93,7 +93,7 @@ class ProduitController extends AbstractController
         ]);
     }
 
-    #[Route('/produit/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProduitType::class, $produit);
@@ -112,7 +112,7 @@ class ProduitController extends AbstractController
     }
 
 
-    #[Route('/produit/{id}/availible', name: 'app_produit_not_availible')]
+    #[Route('/{id}/availible', name: 'app_produit_not_availible')]
     public function notavailible(Produit $produit, EntityManagerInterface $entityManager): Response
     {
 

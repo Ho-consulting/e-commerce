@@ -56,17 +56,13 @@ class PanierController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            // mettre en place une vérification de l'existance des produits dans le stock avant de créer la commande
-            
-            $commande = new Commande();
-            foreach ($panier->getArticlesPanier() as &$articlePanier) { 
 
-                //diminuer la quantité de stock des produits commandés 
+            $commande = new Commande();
+            foreach ($panier->getArticlesPanier() as &$articlePanier) {
                 $commande->addArticle($articlePanier);
+                $articlePanier->getProduit()->setStockQuantite($articlePanier->getProduit()->getStockQuantite() - $articlePanier->getQuantity());
                 $panier->removeArticlesPanier($articlePanier);
             }
-
 
             $entityManager->persist($commande);
             $entityManager->remove($panier);
@@ -82,7 +78,6 @@ class PanierController extends AbstractController
     }
 
     // ******************************************************************************************************************************************
-
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Panier $panier, EntityManagerInterface $entityManager): Response
