@@ -47,11 +47,9 @@ class PanierController extends AbstractController
 
 
     // ******************************************************************************************************************************************
-
     #[Route('/{id}', name: 'app_panier_show', methods: ['GET', 'POST'])]
     public function show(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $form = $this->createForm(CommandeType::class);
         $form->handleRequest($request);
 
@@ -76,7 +74,6 @@ class PanierController extends AbstractController
             'form' => $form
         ]);
     }
-
     // ******************************************************************************************************************************************
 
     #[Route('/{id}/edit', name: 'app_panier_edit', methods: ['GET', 'POST'])]

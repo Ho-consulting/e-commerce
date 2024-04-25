@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'layouts/base.html.twig' %}
 
 {% block title %}Produit{% endblock %}
 
@@ -23,30 +23,29 @@
                 <th>Prix</th>
                 <td>{{ produit.prix }}</td>
             </tr>
-            <tr>
-                <th>StockQuantite</th>
-                <td>{{ produit.stockQuantite }}</td>
-            </tr>
+                <tr>
+                    <th>StockQuantite</th>
+                    <td>{{ produit.stockQuantite }}</td>
+                </tr>
         </tbody>
     </table>
 
         {{ form_start(form) }}
-            {{ form_widget(form) }}
+            {% if produit.stockQuantite > 10 %}
+                {{ form_row(form.quantity, {'attr': {'min': 0, 'max': 10} }) }}
+            {% else %}
+                {{ form_row(form.quantity, {'attr': {'min': 0, 'max': produit.stockQuantite} }) }}
+            {% endif %}
              <button class="btn btn-primary">{{ button_label|default('Ajouter au panier') }}</button> 
         {{ form_end(form) }}
-
 
 
     <a href="{{ path('app_produit_index') }}">back to list</a>
 
     <a href="{{ path('app_produit_edit', {'id': produit.id}) }}">edit</a>
 
-    <a href="{{ path('app_produit_not_availible', {'id': produit.id}) }}" class="btn">desactiver</a> 
-
-
+    <a href="{{ path('app_produit_not_availible', {'id': produit.id}) }}" class="btn">Supprimer</a> 
 
    {# {{ include('produit/_delete_form.html.twig') }} #}
 
-
-   
 {% endblock %}

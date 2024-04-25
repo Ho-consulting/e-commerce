@@ -1,4 +1,7 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.description) }}
+    {{ form_row(form.prix, {'attr': {'min': 0} }) }}
+    {{ form_row(form.stockQuantite, {'attr': {'min': 0} }) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

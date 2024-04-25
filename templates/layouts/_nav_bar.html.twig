@@ -1,0 +1,77 @@
+
+   
+   
+   <!-- Fixed navbar -->
+  <nav id="navbar-header" class="navbar navbar-expand-md navbar-light bg-light mb-5">
+    <div class="container-fluid">
+
+      {% if  is_granted('ROLE_USER') %}
+        <a class="navbar-brand" aria-current="page"><img class="rounded" src="{{asset('images/logo_navbar.png') }}" heigth="133" width="88" alt="LOGO"></a>
+      {% else %}
+        <a class="navbar-brand" aria-current="page" href="{{ path('app_home') }}"><img class="rounded" src="{{asset('images/logo_navbar.png') }}" heigth="133" width="88" alt="LOGO"></a>
+      {% endif %}
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse " id="navbarCollapse">
+          <ul class="navbar-nav mb-2 ms-auto mb-md-0">
+
+              {% if is_granted('ROLE_ARTISAN') or is_granted('ROLE_COMPANY') %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">Profil</b></a>
+                </li>
+              {% endif %}
+
+              {% if not is_granted('ROLE_USER') %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">&nbsp Contact</b></a>
+                </li>
+              {% endif %}
+
+
+            {#
+              {% if is_granted('ROLE_ARTISAN') %}
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ path('app_subscription') }}"><b class="neutral_shade_med">Mon abonnement</b></a>
+                </li>
+              {% endif %} 
+            #}
+              {% if is_granted('ROLE_ADMIN') %}
+              {#
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ path('order_index_all') }}"><b class="neutral_shade_med">Commandes cloturées</b></a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{{ path('app_dashboard_admin') }}"><b class="neutral_shade_med">Tous les appels d'offres</b></a>
+                </li>
+                #}
+              {% endif %}
+
+              
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">Avis clients</b></a>
+              </li>
+          </ul>
+        
+        <div class="ms-auto">
+          {% if app.user %}
+            <a href="{{ path('app_logout') }}" class="btn btn_primary_white" >Déconnexion</a>
+          {% else %}
+            <div class="mr-5">
+              <a href="{{ path('app_login') }}" class="btn btn_primary_dark" >Connexion</a>   
+              <a href="{{ path('app_register') }}" class="btn btn_primary_white" >Inscription</a>   
+            </div>
+          {% endif %}   
+        </div>
+      </div> 
+    </div>
+  </nav>
+
+
+
+
+
+

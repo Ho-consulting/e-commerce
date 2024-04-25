@@ -62,7 +62,6 @@ class ProduitController extends AbstractController
     public function show(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
 
-        
         $form = $this->createForm(ArticlesPanierType::class);
         $form->handleRequest($request);
 

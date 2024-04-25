@@ -15,9 +15,18 @@
     </head>
     <body>
 
+        {{ include ('layouts/flash_message.html.twig') }}
+        {{ include ('layouts/_nav_bar.html.twig') }}
+
     <div class="container pt-5">
         {% block body %}{% endblock %}
     </div>
+
+    {#
+    <div>
+        {{ include ('layouts/_footer.html.twig') }}
+    </div>
+    #}
 
     </body>
 </html>
