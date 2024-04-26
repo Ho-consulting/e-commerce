@@ -1,0 +1,14 @@
+
+.font-secondary {
+    color: #666666;
+}
+
+.font-secondary-bold {
+    color: #5C6170;
+    font-weight: bold;
+}
+
+.font-bold {
+    color: black;
+    font-weight: bold;
+}

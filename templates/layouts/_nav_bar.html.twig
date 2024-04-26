@@ -58,11 +58,11 @@
         
         <div class="ms-auto">
           {% if app.user %}
-            <a href="{{ path('app_logout') }}" class="btn btn_primary_white" >Déconnexion</a>
+            <a href="{{ path('app_logout') }}" class="btn btn-dark">Déconnexion</a>
           {% else %}
             <div class="mr-5">
-              <a href="{{ path('app_login') }}" class="btn btn_primary_dark" >Connexion</a>   
-              <a href="{{ path('app_register') }}" class="btn btn_primary_white" >Inscription</a>   
+              <a href="{{ path('app_login') }}" class="btn btn-outline-dark">Connexion</a>
+              <a href="{{ path('app_register') }}" class="btn btn-dark">Inscription</a>
             </div>
           {% endif %}   
         </div>

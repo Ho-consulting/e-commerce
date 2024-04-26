@@ -7,17 +7,43 @@
         <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
     {% endfor %}
 
-    <h1>Register</h1>
+    <div class="col-lg-7 mx-auto">
 
-    {{ form_errors(registrationForm) }}
+        <h1>Inscription</h1>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+            {{ form_errors(registrationForm) }}
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+            {{ form_start(registrationForm) }}
+
+            <div class="row form-group mb-2 mt-3">
+                <div class="w-50">
+                    {{ form_row(registrationForm.firstName) }}
+                </div>
+
+                <div class="w-50">
+                    {{ form_row(registrationForm.lastName) }}
+                </div>
+            </div>
+
+        
+            
+            <div class="row form-group mb-2">
+                {{ form_row(registrationForm.email) }}
+            </div>
+
+            <div class="row form-group mb-2">
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+            
+            
+  
+            {{ form_row(registrationForm.agreeTerms, {
+                label: 'J\'accepte les conditions d\'utilisation*'
+            }) }}
+
+            <button type="submit" class="w-100 btn btn-dark">S'inscrire</button>
+        {{ form_end(registrationForm) }}
+
+        <p class="text-center font-secondary mt-5">Avez vous un compte ?<a style="text-decoration: none;" href="{{ path('app_login') }}" class="font-bold"> Se connecter</a></p>
+    </div>
 {% endblock %}
