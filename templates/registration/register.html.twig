@@ -9,7 +9,7 @@
 
     <div class="col-lg-7 mx-auto">
 
-        <h1>Inscription</h1>
+        <h1 class="mt-5 mb-4 font-weight-normal bold"><b>Inscription</b></h1>
 
             {{ form_errors(registrationForm) }}
 
@@ -24,8 +24,6 @@
                     {{ form_row(registrationForm.lastName) }}
                 </div>
             </div>
-
-        
             
             <div class="row form-group mb-2">
                 {{ form_row(registrationForm.email) }}
@@ -35,12 +33,10 @@
                 {{ form_row(registrationForm.plainPassword) }}
             </div>
             
+            <div class="row form-group mb-2">
+                {{ form_row(registrationForm.agreeTerms) }}
+            </div>
             
-  
-            {{ form_row(registrationForm.agreeTerms, {
-                label: 'J\'accepte les conditions d\'utilisation*'
-            }) }}
-
             <button type="submit" class="w-100 btn btn-dark">S'inscrire</button>
         {{ form_end(registrationForm) }}
 
