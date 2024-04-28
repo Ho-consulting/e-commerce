@@ -2,6 +2,57 @@
 
 {% block title %}Produit index{% endblock %}
 
+
+{% block body %}
+
+    {% if produits|length > 0 %}
+        <h1 class="text-center mb-5 text-muted">Tous les produits ({{ pluralize(produits|length,'produit','produits') }})  </h1>
+        {% for row in produits|batch(3) %}
+            <div class="row">
+                {% for produit in row %}
+                    <div class="col-md-4 mb-5">
+                        <div class="mw-100 overflow-hidden shadow">
+                            <article class="bg-white rounded">
+                                <a href="{{ path('app_produit_show', {id:produit.id}) }}">
+                                  {# <img class="w-100 rounded-top" src="{{ plat.imageURL ? vich_uploader_asset(plat) | imagine_filter('squared_thumbnail_medium') : asset('images/imgpardefaut.jpg') | imagine_filter('squared_thumbnail_medium') }}" alt="{{ produit.name }}">#}
+                                </a>
+                                <a class="text-center text-muted text-decoration-none" href="{{ path('app_produit_show', {id:produit.id}) }}"><h2 class="pt-3">{{ produit.name }}</h2></a>
+                                <p class="text-center text-muted pb-2 text-break"> {{ produit.description|u.truncate(100, '.......', false) }} </p>
+                                
+                                {# <p class="text-center pb-2 text-muted"><small>Publié par {{ plat.user.getUserName() }}</small></p> #}
+                                {# <p> {{ plat.description|u.truncate(10, '.......', false) }} </p> #}
+                                {#  <p> {{ plat.categories }} </p>   #}
+                                {#  <p> {{ plat.regime }} </p>       #}
+
+                                {#
+                                <div class="row mx-auto p-3">
+                                    <div class="col-6">
+                                        <a class="btn w-100 btn-outline-primary mb-3" href="{{ path('app_produit_show', {'id': produit.id}) }}">Consulter</a>
+                                    </div>
+                                    <div class="col-6">
+                                        <a class="btn w-100 btn-outline-primary mb-3" href="{{ path('app_produit_edit', {'id': produit.id}) }}">Modifier</a>
+                                    </div>
+                                </div>
+                                #}
+
+                                <div class="row mx-auto p-3">
+                                    <a class="btn w-100 btn-dark mb-3" href="{{ path('app_produit_show', {'id': produit.id}) }}">Consulter</a>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="h1 text-center mt-5 text-muted"> Aucun produit</p>
+    {% endif %}
+    <a href="{{ path('app_produit_new') }}">Create new</a>
+{% endblock %}
+
+
+
+{#
 {% block body %}
     <h1>Produit index</h1>
 
@@ -37,5 +88,10 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_produit_new') }}">Create new</a>
+    
 {% endblock %}
+
+#}
+
+
+
