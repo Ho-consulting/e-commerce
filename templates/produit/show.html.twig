@@ -9,10 +9,14 @@
 
 {% block body %}
 
+    {% if not app.user %}
+        <h3 class="text-center text-muted"> <a href="{{ path('app_login') }}" style="text-decoration: none;">Connectez-vous</a> afin de pouvoir effectuer vos achats. </h3>
+    {% endif %}
+
     <div class="row">
     
       	<div class="col-md-7 p-5">
-            <img id="imgprincip" class="rounded-top img-fluid" src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="produit newYork">
+            <img id="imgprincip" class="rounded-top img-fluid" src="{{ vich_uploader_asset(produit, 'imageFile') }}" alt="produit image">
 
             {#
       		<div class="row">
@@ -56,7 +60,11 @@
                             {% endif %}
                         </div>
                         <div class="col-md-7">
-                            <button class="btn btn-dark w-100">{{ button_label|default('Ajouter au panier') }} <i class="fas fa-shopping-cart"></i></button> 
+                            {% if app.user %}
+                                <button class="btn btn-dark w-100">{{ button_label|default('Ajouter au panier') }} <i class="fas fa-shopping-cart"></i></button> 
+                            {% else %}
+                                <a href="{{ path('app_login')}}" class="btn btn-dark w-100"> Ajouter au panier <i class="fas fa-shopping-cart"></i></a> 
+                            {% endif %}
                         </div>
                     </div>
                 {{ form_end(form) }}

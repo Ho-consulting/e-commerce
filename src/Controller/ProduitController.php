@@ -77,13 +77,14 @@ class ProduitController extends AbstractController
                 $panier = $this->getUser()->getPanier();
             }
 
+            
             $panier->addArticlesPanier($articlesPanier);
-
+            $panier->setUser($this->getUser());
+            
             $entityManager->persist($panier);
             $entityManager->persist($articlesPanier);
             $entityManager->flush();
 
-           // return $this->redirectToRoute('app_articles_panier_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('produit/show.html.twig', [
@@ -91,6 +92,7 @@ class ProduitController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response

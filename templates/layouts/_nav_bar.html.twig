@@ -24,6 +24,8 @@
                 </li>
               {% endif %}
 
+              
+
               {% if not is_granted('ROLE_USER') %}
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">&nbsp Contact</b></a>
@@ -50,12 +52,16 @@
                 #}
               {% endif %}
 
+              {% if is_granted('ROLE_USER') and app.user.panier != null %}
+                <li class="nav-item">
+                  <a class="nav-link text-decoration-none" aria-current="page" href="{{ path('app_panier_show', {'id': app.user.panier.id}) }}"><b class="neutral_shade_med">Panier &nbsp<span class="badge bg-primary">{{ app.user.panier.getArticlesPanier|length }}</span></b></a>
+                </li>
+              {% endif %}
               
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">Avis clients</b></a>
-              </li>
           </ul>
-        
+ 
+
+
         <div class="ms-auto">
           {% if app.user %}
             <a href="{{ path('app_logout') }}" class="btn btn-dark">Déconnexion</a>

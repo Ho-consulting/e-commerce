@@ -16,7 +16,7 @@ class Panier
     private ?int $id = null;
 
 
-    #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist'])]
     private ?User $user = null;
 
     /**

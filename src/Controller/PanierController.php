@@ -62,6 +62,8 @@ class PanierController extends AbstractController
                 $panier->removeArticlesPanier($articlePanier);
             }
 
+            $commande->setUser($panier->getUser());
+            $panier->setUser(null);
             $entityManager->persist($commande);
             $entityManager->remove($panier);
             $entityManager->flush();
