@@ -12,9 +12,10 @@
                 {% for produit in row %}
                     <div class="col-md-4 mb-5">
                         <div class="mw-100 overflow-hidden shadow">
-                            <article class="bg-white rounded">
+                            <article class="bg-white rounded p-3">
                                 <a href="{{ path('app_produit_show', {id:produit.id}) }}">
                                   {# <img class="w-100 rounded-top" src="{{ plat.imageURL ? vich_uploader_asset(plat) | imagine_filter('squared_thumbnail_medium') : asset('images/imgpardefaut.jpg') | imagine_filter('squared_thumbnail_medium') }}" alt="{{ produit.name }}">#}
+                                    <img class="w-100 rounded-top" style="max-width: 400px;" src="{{ vich_uploader_asset(produit, 'imageFile') }}">
                                 </a>
                                 <a class="text-center text-muted text-decoration-none" href="{{ path('app_produit_show', {id:produit.id}) }}"><h2 class="pt-3">{{ produit.name }}</h2></a>
                                 <p class="text-center text-muted pb-2 text-break"> {{ produit.description|u.truncate(100, '.......', false) }} </p>

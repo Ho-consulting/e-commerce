@@ -5,6 +5,12 @@
 {% block body %}
     <h1>Produit</h1>
 
+
+    <div class="produit_image mb-3">
+        <img style="max-width: 400px;" src="{{ vich_uploader_asset(produit, 'imageFile') }}">
+    </div>
+    
+
     <table class="table">
         <tbody>
             <tr>
