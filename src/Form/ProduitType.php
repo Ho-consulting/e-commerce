@@ -53,6 +53,10 @@ class ProduitType extends AbstractType
                         'message' => 'Veuillez renseigner une valeur positive',
                     ])
             ]])
+            ->add('specifite1', TextType::class)
+            ->add('specefite2', TextType::class)
+            ->add('specefite3', TextType::class)
+            ->add('specifite4', TextType::class)
         ;
     }
 

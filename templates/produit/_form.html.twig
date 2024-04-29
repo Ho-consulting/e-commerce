@@ -4,5 +4,9 @@
     {{ form_row(form.description) }}
     {{ form_row(form.prix, {'attr': {'min': 0} }) }}
     {{ form_row(form.stockQuantite, {'attr': {'min': 0} }) }}
+    {{ form_row(form.specifite1) }}
+    {{ form_row(form.specefite2) }}
+    {{ form_row(form.specefite3) }}
+    {{ form_row(form.specifite4) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

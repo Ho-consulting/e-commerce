@@ -43,13 +43,24 @@ class Produit
     #[ORM\Column(nullable: true)]
     private ?bool $availible = null;
 
-
     // NOTE: This is not a mapped field of entity metadata, just a simple property.
     #[Vich\UploadableField(mapping: 'products_images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
     #[ORM\Column(nullable: true)]
     private ?string $imageName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specifite1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specefite2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specefite3 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $specifite4 = null;
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -184,6 +195,54 @@ class Produit
     public function setAvailible(?bool $availible): static
     {
         $this->availible = $availible;
+
+        return $this;
+    }
+
+    public function getSpecifite1(): ?string
+    {
+        return $this->specifite1;
+    }
+
+    public function setSpecifite1(?string $specifite1): static
+    {
+        $this->specifite1 = $specifite1;
+
+        return $this;
+    }
+
+    public function getSpecefite2(): ?string
+    {
+        return $this->specefite2;
+    }
+
+    public function setSpecefite2(?string $specefite2): static
+    {
+        $this->specefite2 = $specefite2;
+
+        return $this;
+    }
+
+    public function getSpecefite3(): ?string
+    {
+        return $this->specefite3;
+    }
+
+    public function setSpecefite3(?string $specefite3): static
+    {
+        $this->specefite3 = $specefite3;
+
+        return $this;
+    }
+
+    public function getSpecifite4(): ?string
+    {
+        return $this->specifite4;
+    }
+
+    public function setSpecifite4(?string $specifite4): static
+    {
+        $this->specifite4 = $specifite4;
 
         return $this;
     }
