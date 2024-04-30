@@ -1,0 +1,13 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Edit Delivry{% endblock %}
+
+{% block body %}
+    <h1>Edit Delivry</h1>
+
+    {{ include('delivry/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_delivry_index') }}">back to list</a>
+
+    {{ include('delivry/_delete_form.html.twig') }}
+{% endblock %}

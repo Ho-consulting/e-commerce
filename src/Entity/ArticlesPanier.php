@@ -84,4 +84,9 @@ class ArticlesPanier
     }
 
 
+    public function getDelivry(): ?float
+    {
+        return $this->getProduit()->getDelivry()->getPriceDelivry();
+    }
+
 }

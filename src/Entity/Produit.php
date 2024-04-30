@@ -62,6 +62,9 @@ class Produit
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $specifite4 = null;
 
+    #[ORM\ManyToOne(inversedBy: 'produit')]
+    private ?Delivry $delivry = null;
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -243,6 +246,18 @@ class Produit
     public function setSpecifite4(?string $specifite4): static
     {
         $this->specifite4 = $specifite4;
+
+        return $this;
+    }
+
+    public function getDelivry(): ?Delivry
+    {
+        return $this->delivry;
+    }
+
+    public function setDelivry(?Delivry $delivry): static
+    {
+        $this->delivry = $delivry;
 
         return $this;
     }

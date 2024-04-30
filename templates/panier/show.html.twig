@@ -49,14 +49,14 @@
                     <p class="text-muted h5">Livraison</p>
                 </div>
                 <div class="col-lg-4">
-                    <p class="text-muted h5 text-end">€</p>
+                    <p class="text-muted h5 text-end">{{ panier.getDelivryMax }}€</p>
                 </div>
                 <hr>
                 <div class="col-lg-8">
                     <p class="text-muted h5">Total</p>
                 </div>
                 <div class="col-lg-4">
-                    <p class="text-muted h5 text-end">€</p>
+                    <p class="text-muted h5 text-end">{{ panier.getDelivryMax + panier.getTotalPanier }}€</p>
                 </div>
             </div>
         </div>

@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Delivry;
 use App\Entity\Produit;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,6 +46,14 @@ class ProduitType extends AbstractType
                         'message' => 'Veuillez renseigner une valeur positive',
                     ])
             ]])
+            ->add('delivry', EntityType::class, [
+                'class' => Delivry::class,
+                'choice_label' => 'priceDelivry',
+                'constraints' => [
+                    new NotBlank([
+                        'message' => 'Veuillez renseigner une livraison',
+                    ]),
+            ]])
             ->add('stockQuantite', null, [
                 'constraints' => [
                     new NotBlank([
@@ -53,6 +63,7 @@ class ProduitType extends AbstractType
                         'message' => 'Veuillez renseigner une valeur positive',
                     ])
             ]])
+
             ->add('specifite1', TextType::class)
             ->add('specefite2', TextType::class)
             ->add('specefite3', TextType::class)

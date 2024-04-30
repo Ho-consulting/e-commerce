@@ -97,5 +97,19 @@ class Panier
         return $total;
     }
 
-    
+
+    public function getDelivryMax(): ?float
+    {
+        $max = $this->getArticlesPanier()[0]->getDelivry();
+        foreach ($this->getArticlesPanier() as &$article) {
+            if ($max < $article->getDelivry()) {
+                $max = $article->getDelivry();
+            }
+            
+        }
+        return $max;
+    }
+
+
+
 }

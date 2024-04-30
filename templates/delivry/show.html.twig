@@ -1,0 +1,27 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}Livraison{% endblock %}
+
+
+{% block body %}
+    <h1>Delivry</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ delivry.id }}</td>
+            </tr>
+            <tr>
+                <th>PriceDelivry</th>
+                <td>{{ delivry.priceDelivry }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_delivry_index') }}">back to list</a>
+
+    <a href="{{ path('app_delivry_edit', {'id': delivry.id}) }}">edit</a>
+
+    {{ include('delivry/_delete_form.html.twig') }}
+{% endblock %}

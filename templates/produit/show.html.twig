@@ -51,7 +51,7 @@
             {% elseif produit.stockQuantite < 10 and produit.stockQuantite >= 3 %}  
                 <div class="alert alert-warning"> Stock faible </div>
             {% elseif produit.stockQuantite <= 3 %}  
-                <div class="alert alert-warning"> Moins que 3 exemplaires restants </div>
+                <div class="alert alert-danger"> Moins que 3 exemplaires restants </div>
             {% endif %}
       		<hr>
 
