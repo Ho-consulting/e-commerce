@@ -77,4 +77,11 @@ class ArticlesPanier
 
         return $this;
     }
+
+    public function getTotal(): ?float
+    {
+        return $this->produit->getPrix() * $this->quantity;
+    }
+
+
 }

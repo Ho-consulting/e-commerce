@@ -65,7 +65,10 @@ class ProduitController extends AbstractController
         $form = $this->createForm(ArticlesPanierType::class);
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+
+            // vérifier si les articles existent déja dans l'ancier panier afin de rajouter juste la quantité
             $articlesPanier = new ArticlesPanier();
             $articlesPanier->setProduit($produit);
             $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);

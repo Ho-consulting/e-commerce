@@ -15,7 +15,6 @@ class Panier
     #[ORM\Column]
     private ?int $id = null;
 
-
     #[ORM\OneToOne(mappedBy: 'panier', cascade: ['persist'])]
     private ?User $user = null;
 
@@ -86,6 +85,16 @@ class Panier
         }
 
         return $this;
+    }
+
+
+    public function getTotalPanier(): ?float
+    {
+        $total = 0;
+        foreach ($this->articlesPanier as &$article) {
+            $total = $total + $article->getTotal();
+        }
+        return $total;
     }
 
     

@@ -54,10 +54,9 @@
 
               {% if is_granted('ROLE_USER') and app.user.panier != null %}
                 <li class="nav-item">
-                  <a class="nav-link text-decoration-none" aria-current="page" href="{{ path('app_panier_show', {'id': app.user.panier.id}) }}"><b class="neutral_shade_med">Panier &nbsp<span class="badge bg-primary">{{ app.user.panier.getArticlesPanier|length }}</span></b></a>
+                  <a class="nav-link text-decoration-none btn" aria-current="page" href="{{ path('app_panier_show', {'id': app.user.panier.id}) }}"><b class="neutral_shade_med">Panier  &nbsp<span class="badge bg-primary">{{ app.user.panier.getArticlesPanier|length }}</span></b></a>
                 </li>
               {% endif %}
-              
           </ul>
  
 

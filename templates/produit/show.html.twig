@@ -46,8 +46,13 @@
 
       		<p class="h3 mb-4 text-muted"><b>{{ produit.prix }}€</b></p>
 
-
-      		<div class="alert alert-success"> En stock </div>
+            {% if produit.stockQuantite >= 10 %}
+      		    <div class="alert alert-success"> En stock </div>
+            {% elseif produit.stockQuantite < 10 and produit.stockQuantite >= 3 %}  
+                <div class="alert alert-warning"> Stock faible </div>
+            {% elseif produit.stockQuantite <= 3 %}  
+                <div class="alert alert-warning"> Moins que 3 exemplaires restants </div>
+            {% endif %}
       		<hr>
 
                 {{ form_start(form) }}
