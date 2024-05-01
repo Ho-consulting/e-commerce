@@ -67,25 +67,31 @@ class ProduitController extends AbstractController
 
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            // vérifier si les articles existent déja dans l'ancier panier afin de rajouter juste la quantité
-            $articlesPanier = new ArticlesPanier();
-            $articlesPanier->setProduit($produit);
-            $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
-
             
+            $exist = false;
             if ($this->getUser() and $this->getUser()->getPanier() == null) {
                 $panier = new Panier();
             } else {
                 $panier = $this->getUser()->getPanier();
+                foreach ($panier->getArticlesPanier() as &$article) {
+                    if ($article->getProduit() == $produit) {
+                        $exist = true;
+                        $article->setQuantity($article->getQuantity() + $request->request->all()['articles_panier']['quantity']);
+                        break;
+                    }
+                }
             }
 
+            if ($exist == false) {
+                $articlesPanier = new ArticlesPanier();
+                $articlesPanier->setProduit($produit);
+                $articlesPanier->setQuantity($request->request->all()['articles_panier']['quantity']);
+                $entityManager->persist($articlesPanier);
+                $panier->addArticlesPanier($articlesPanier);
+            }
             
-            $panier->addArticlesPanier($articlesPanier);
             $panier->setUser($this->getUser());
-            
-            $entityManager->persist($panier);
-            $entityManager->persist($articlesPanier);
+            $entityManager->persist($panier); 
             $entityManager->flush();
 
         }
@@ -127,7 +133,6 @@ class ProduitController extends AbstractController
     }
 
 
-
     /*
     #[Route('/produit/{id}', name: 'app_produit_delete', methods: ['POST'])]
     public function delete(Request $request, Produit $produit, EntityManagerInterface $entityManager): Response
@@ -141,5 +146,6 @@ class ProduitController extends AbstractController
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
     }
     */
+    
 }
 

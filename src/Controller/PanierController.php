@@ -59,6 +59,9 @@ class PanierController extends AbstractController
             foreach ($panier->getArticlesPanier() as &$articlePanier) {
                 $commande->addArticle($articlePanier);
                 $articlePanier->getProduit()->setStockQuantite($articlePanier->getProduit()->getStockQuantite() - $articlePanier->getQuantity());
+                if ($articlePanier->getProduit()->getStockQuantite() == 0) {
+                    $articlePanier->getProduit()->setAvailible(false);
+                }
                 $panier->removeArticlesPanier($articlePanier);
             }
 

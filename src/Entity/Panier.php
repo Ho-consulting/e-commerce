@@ -29,7 +29,6 @@ class Panier
         $this->articlesPanier = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -109,7 +108,5 @@ class Panier
         }
         return $max;
     }
-
-
 
 }
