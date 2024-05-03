@@ -68,6 +68,27 @@ class ArticlesPanierController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}/remove', name: 'app_article_remove', methods: ['GET','POST'])]
+    public function removeArticle(ArticlesPanier $article, EntityManagerInterface $entityManager): Response
+    {
+
+        $panier = $article->getPanier();
+        $panier->removeArticlesPanier($article);
+        $entityManager->remove($article);
+        if ($panier->getDelivryMax() != 0) {
+            $entityManager->flush();
+            return $this->redirectToRoute('app_panier_show', ["id" => $panier->getId()], Response::HTTP_SEE_OTHER);
+        } else {
+            $panier->setUser(null);
+            $entityManager->remove($panier);
+            $entityManager->flush(); 
+            return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER);
+        }
+    }
+    
+
+    /*
+
     #[Route('/{id}', name: 'app_articles_panier_delete', methods: ['POST'])]
     public function delete(Request $request, ArticlesPanier $articlesPanier, EntityManagerInterface $entityManager): Response
     {
@@ -78,4 +99,5 @@ class ArticlesPanierController extends AbstractController
 
         return $this->redirectToRoute('app_articles_panier_index', [], Response::HTTP_SEE_OTHER);
     }
+    */
 }

@@ -24,7 +24,8 @@
 
                         <div class="col-lg-3 p-3">
                             <p class="h3 bold text-muted mb-5 text-end">{{ article.getProduit.getPrix }}€</p> 
-                            <button class="btn btn-outline-danger w-100">Supprimer<i class="fas fa-trash-alt"></i></button>
+                            <a class="btn btn-outline-danger w-100" href="{{ path('app_article_remove', {'id': article.id}) }}">Supprimer</a>
+
                         </div>
                     </div>
                     <hr>
@@ -48,9 +49,13 @@
                 <div class="col-lg-8">
                     <p class="text-muted h5">Livraison</p>
                 </div>
+
+                
                 <div class="col-lg-4">
-                    <p class="text-muted h5 text-end">{{ panier.getDelivryMax }}€</p>
+                        <p class="text-muted h5 text-end">{{ panier.getDelivryMax }}€</p>
                 </div>
+                
+
                 <hr>
                 <div class="col-lg-8">
                     <p class="text-muted h5">Total</p>
