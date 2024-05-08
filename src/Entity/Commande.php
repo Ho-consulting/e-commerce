@@ -31,6 +31,9 @@ class Commande
     #[ORM\ManyToOne(inversedBy: 'commande')]
     private ?User $user = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Adresse $adresse = null;
+
     public function __construct()
     {
         $this->articles = new ArrayCollection();
@@ -103,6 +106,18 @@ class Commande
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): static
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }
