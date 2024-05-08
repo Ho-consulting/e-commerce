@@ -45,39 +45,11 @@ class PanierController extends AbstractController
         ]);
     }
 
-
-    
-    #[Route('/{id}', name: 'app_panier_show', methods: ['GET', 'POST'])]
-    public function show(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}', name: 'app_panier_show', methods: ['GET'])]
+    public function show(Panier $panier): Response
     {
-        
-        $form = $this->createForm(CommandeType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $commande = new Commande();
-            foreach ($panier->getArticlesPanier() as &$articlePanier) {
-                $commande->addArticle($articlePanier);
-                $articlePanier->getProduit()->setStockQuantite($articlePanier->getProduit()->getStockQuantite() - $articlePanier->getQuantity());
-                if ($articlePanier->getProduit()->getStockQuantite() == 0) {
-                    $articlePanier->getProduit()->setAvailible(false);
-                }
-                $panier->removeArticlesPanier($articlePanier);
-            }
-
-            $commande->setUser($panier->getUser());
-            $panier->setUser(null);
-            $entityManager->persist($commande);
-            $entityManager->remove($panier);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
-        }
-
         return $this->render('panier/show.html.twig', [
             'panier' => $panier,
-            'form' => $form
         ]);
     }
     

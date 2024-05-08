@@ -64,10 +64,8 @@
                     <p class="text-muted h5 text-end">{{ panier.getDelivryMax + panier.getTotalPanier }}€</p>
                 </div>
             </div>
-            {{ form_start(form) }}
-                {{ form_widget(form) }}
-                <button class="btn btn-outline-dark w-100">{{ button_label|default('Passer la commande') }}</button> 
-            {{ form_end(form) }}
+
+            <a href="{{ path('app_commande_new', {'id': panier.id}) }}" class="btn btn-outline-dark w-100">Passer la commande</a>
 
         </div>
     </div>

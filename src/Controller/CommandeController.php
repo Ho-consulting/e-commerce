@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Commande;
+use App\Entity\Panier;
 use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -22,18 +23,31 @@ class CommandeController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+
+    #[Route('/{id}/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
+    public function new(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
     {
         $commande = new Commande();
-        $form = $this->createForm(CommandeType::class, $commande);
+        $form = $this->createForm(CommandeType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            foreach ($panier->getArticlesPanier() as &$articlePanier) {
+                $commande->addArticle($articlePanier);
+                $articlePanier->getProduit()->setStockQuantite($articlePanier->getProduit()->getStockQuantite() - $articlePanier->getQuantity());
+                if ($articlePanier->getProduit()->getStockQuantite() == 0) {
+                    $articlePanier->getProduit()->setAvailible(false);
+                }
+                $panier->removeArticlesPanier($articlePanier);
+            }
+
+            $commande->setUser($panier->getUser());
+            $panier->setUser(null);
             $entityManager->persist($commande);
+            $entityManager->remove($panier);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('commande/new.html.twig', [
@@ -41,6 +55,7 @@ class CommandeController extends AbstractController
             'form' => $form,
         ]);
     }
+
 
     #[Route('/{id}', name: 'app_commande_show', methods: ['GET'])]
     public function show(Commande $commande): Response

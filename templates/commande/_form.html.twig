@@ -1,4 +1,8 @@
-{{ form_start(form) }}
+ {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+  {# {{ form_row(form.specifite1) }} #} 
+
+
+    <button class="btn btn-outline-dark w-100">{{ button_label|default('Passer la commande') }}</button> 
 {{ form_end(form) }}

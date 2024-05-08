@@ -71,7 +71,6 @@ class ArticlesPanierController extends AbstractController
     #[Route('/{id}/remove', name: 'app_article_remove', methods: ['GET','POST'])]
     public function removeArticle(ArticlesPanier $article, EntityManagerInterface $entityManager): Response
     {
-
         $panier = $article->getPanier();
         $panier->removeArticlesPanier($article);
         $entityManager->remove($article);
