@@ -3,30 +3,25 @@
 namespace App\Form;
 
 use App\Entity\Adresse;
-use App\Entity\Commande;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommandeType extends AbstractType
+class AdresseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-           // ->add('prixTotal')
-           /* ->add('commandeDate', null, [
-                'widget' => 'single_text',
-            ])
-            */
-           /* ->add('user', EntityType::class, [
+            ->add('firstName')
+            ->add('lastName')
+            ->add('address')
+            ->add('postalCode')
+            ->add('town')
+            /*
+            ->add('user', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
-            ])
-            
-            ->add('adresse', EntityType::class, [
-                'class' => Adresse::class,
                 'choice_label' => 'id',
             ])
             */
@@ -36,7 +31,7 @@ class CommandeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Commande::class,
+            'data_class' => Adresse::class,
         ]);
     }
 }

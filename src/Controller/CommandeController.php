@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/commande')]
 class CommandeController extends AbstractController
 {
+
     #[Route('/', name: 'app_commande_index', methods: ['GET'])]
     public function index(CommandeRepository $commandeRepository): Response
     {
@@ -23,7 +24,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
-
+ 
     #[Route('/{id}/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
     public function new(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -42,6 +43,7 @@ class CommandeController extends AbstractController
             }
 
             $commande->setUser($panier->getUser());
+            $commande->setAdresse($panier->getUser()->getAdresse());
             $panier->setUser(null);
             $entityManager->persist($commande);
             $entityManager->remove($panier);
@@ -53,6 +55,7 @@ class CommandeController extends AbstractController
         return $this->render('commande/new.html.twig', [
             'commande' => $commande,
             'form' => $form,
+            'adress' => $panier->getUser()->getAdresse(),
         ]);
     }
 
@@ -64,6 +67,7 @@ class CommandeController extends AbstractController
             'commande' => $commande,
         ]);
     }
+
 
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
@@ -83,6 +87,7 @@ class CommandeController extends AbstractController
         ]);
     }
 
+
     #[Route('/{id}', name: 'app_commande_delete', methods: ['POST'])]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
@@ -97,4 +102,5 @@ class CommandeController extends AbstractController
 
         return $this->redirectToRoute('app_commande_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }

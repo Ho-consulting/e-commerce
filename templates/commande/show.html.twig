@@ -22,26 +22,6 @@
         </tbody>
     </table>
 
-
-    <h3 class="mt-5">Articles </h3>
-
-    {% for article in commande.getArticles %}
-
-        <table class="table">
-        <tbody>
-            <tr>
-                <th>produits</th>
-                <td>{{ article.getProduit.getName}}</td>
-            </tr>
-            <tr>
-                <th>Quantité</th>
-                <td>{{ article.quantity }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    {% endfor %}
-
     <a href="{{ path('app_commande_index') }}">back to list</a>
 
     <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>

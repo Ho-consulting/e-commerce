@@ -42,19 +42,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $lastName = null;
 
-    /*
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $address = null;
-
-    #[ORM\Column(type: Types::BIGINT, nullable: true)]
-    private ?string $postalCode = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $town = null;
-
-    */
-
     #[ORM\OneToOne(inversedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Panier $panier = null;
 
@@ -67,16 +54,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    /**
-     * @var Collection<int, Adresse>
-     */
-    #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user')]
-    private Collection $adresse;
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Adresse $adresse = null;
 
+  
     public function __construct()
     {
         $this->commande = new ArrayCollection();
-        $this->adresse = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,45 +162,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /*
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): static
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getPostalCode(): ?string
-    {
-        return $this->postalCode;
-    }
-
-    public function setPostalCode(?string $postalCode): static
-    {
-        $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    public function getTown(): ?string
-    {
-        return $this->town;
-    }
-
-    public function setTown(?string $town): static
-    {
-        $this->town = $town;
-
-        return $this;
-    }
-
-    */
+    
 
     public function getPanier(): ?Panier
     {
@@ -272,33 +218,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Adresse>
-     */
-    public function getAdresse(): Collection
+    public function getAdresse(): ?Adresse
     {
         return $this->adresse;
     }
 
-    public function addAdresse(Adresse $adresse): static
+    public function setAdresse(?Adresse $adresse): static
     {
-        if (!$this->adresse->contains($adresse)) {
-            $this->adresse->add($adresse);
+        // unset the owning side of the relation if necessary
+        if ($adresse === null && $this->adresse !== null) {
+            $this->adresse->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($adresse !== null && $adresse->getUser() !== $this) {
             $adresse->setUser($this);
         }
 
-        return $this;
-    }
-
-    public function removeAdresse(Adresse $adresse): static
-    {
-        if ($this->adresse->removeElement($adresse)) {
-            // set the owning side to null (unless already changed)
-            if ($adresse->getUser() === $this) {
-                $adresse->setUser(null);
-            }
-        }
+        $this->adresse = $adresse;
 
         return $this;
     }
+
+    
 }

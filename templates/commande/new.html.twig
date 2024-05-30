@@ -3,9 +3,37 @@
 {% block title %}New Commande{% endblock %}
 
 {% block body %}
-    <h1>Validation de commande</h1>
 
-    {{ include('commande/_form.html.twig') }}
+    <h1 class="text-center">Validation de la commande</h1>
 
-    <a href="{{ path('app_commande_index') }}">back to list</a>
+    
+    <div class="row mt-5 mx-auto">
+
+        <div class="col-lg-6 p-5">
+            {% if adress != null %}
+                <b>ADRESSE DE LIVRAISON</b><br>
+                <div class="border-top pt-3">
+                    <a class="btn btn-dark float-end" href="{{ path('app_adresse_edit', {'id': adress.id}) }}">Modifier</a>
+                    <p>{{ adress.firstName }} {{ adress.lastName }}<br>
+                    {{ adress.address }}<br>
+                    {{ adress.postalCode }}<br> 
+                    {{ adress.town }}</p>
+                </div>
+            {% else %}
+                <p class="h3">Aucune adresse</p>
+                <a href="{{ path('app_adresse_new') }}">Ajouter une adresse</a>
+            {% endif %}
+        </div>
+
+        <div class="col-lg-6 p-5">
+            {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button class="btn btn-outline-dark w-100">{{ button_label|default('Continuer') }}</button>
+            {{ form_end(form) }}
+        </div>  
+
+        
+    </div>
+
+
 {% endblock %}
