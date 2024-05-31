@@ -26,7 +26,7 @@ class CommandeController extends AbstractController
 
 
     #[Route('/addres-validation', name: 'app_commande_adress', methods: ['GET'])]
-    public function show_addres(CommandeRepository $commandeRepository): Response
+    public function show_addres(): Response
     {
         return $this->render('commande/validate_addres.html.twig', [
             'adress' => $this->getUser()->getAdresse(),
@@ -35,23 +35,19 @@ class CommandeController extends AbstractController
 
 
     #[Route('/payment', name: 'app_commande_payment', methods: ['GET', 'POST'])]
-    public function commande_paiement(CommandeRepository $commandeRepository) /* : Response*/
+    public function commande_paiement() : Response
     {
-       /* return $this->render('commande/validate_addres.html.twig', [
-            'adress' => $this->getUser()->getAdresse(),
+        return $this->render('commande/payment.html.twig', [
+            'panier' => $this->getUser()->getPanier(),
         ]);
-        */
     }
 
 
     #[Route('/{id}/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
-    public function new(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Panier $panier, EntityManagerInterface $entityManager): Response
     {
         $commande = new Commande();
-        $form = $this->createForm(CommandeType::class);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
             foreach ($panier->getArticlesPanier() as &$articlePanier) {
                 $commande->addArticle($articlePanier);
                 $articlePanier->getProduit()->setStockQuantite($articlePanier->getProduit()->getStockQuantite() - $articlePanier->getQuantity());
@@ -68,14 +64,9 @@ class CommandeController extends AbstractController
             $entityManager->remove($panier);
             $entityManager->flush();
 
+            $this->addFlash('success', 'Votre commande a bien été prise en compte');
+            
             return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('commande/new.html.twig', [
-            'commande' => $commande,
-            'form' => $form,
-            'adress' => $panier->getUser()->getAdresse(),
-        ]);
     }
 
 

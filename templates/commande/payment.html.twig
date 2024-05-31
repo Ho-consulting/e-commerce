@@ -1,0 +1,38 @@
+{% extends 'layouts/base.html.twig' %}
+
+{% block title %}New Commande{% endblock %}
+
+{% block body %}
+
+    <h1 class="text-center">Paiement sécurisé</h1>
+
+        <div class="progress mt-5 col-md-10 mx-auto" role="progressbar" aria-label="Animated striped example" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 64%"></div>
+        </div>
+
+        <div class="mt-3 row col-11 mx-auto">
+            <div class="col-3">
+                <b>Utilisateur connecté</b>
+                <p></p>
+            </div>
+
+            <div class="col-3 text-center">
+                <b>Adresse</b>
+            </div>
+
+            <div class="col-3 text-center">
+                <b>Paiement</b>
+            </div>
+
+            <div class="col-3 text-end">
+                <b>C'est fait</b>
+            </div>
+        </div>
+
+        <div class="col-lg-6 p-5">
+            <a href="{{ path('app_commande_new', {'id': panier.id}) }}" class="btn btn-outline-dark w-100">Passer la commande</a>
+        </div>
+    </div>
+
+{% endblock %}
+
