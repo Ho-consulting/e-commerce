@@ -5,9 +5,11 @@
 {% block body %}
 
 
-    <h1>Modifier mon adresse de livraison</h1>
-    {{ include('adresse/_form.html.twig', {'button_label': 'Update'}) }}
-
-
+    <h1 class="mb-5 font-weight-normal bold text-center"><b>Modifier mon adresse de livraison</b></h1>
     
+    <div class="col-md-7 mx-auto mt-5">
+        {{ include('adresse/_form.html.twig', {'button_label': 'Update'}) }}
+    </div>
+
+
 {% endblock %}
