@@ -24,7 +24,26 @@ class CommandeController extends AbstractController
         ]);
     }
 
- 
+
+    #[Route('/addres-validation', name: 'app_commande_adress', methods: ['GET'])]
+    public function show_addres(CommandeRepository $commandeRepository): Response
+    {
+        return $this->render('commande/validate_addres.html.twig', [
+            'adress' => $this->getUser()->getAdresse(),
+        ]);
+    }
+
+
+    #[Route('/payment', name: 'app_commande_payment', methods: ['GET', 'POST'])]
+    public function commande_paiement(CommandeRepository $commandeRepository) /* : Response*/
+    {
+       /* return $this->render('commande/validate_addres.html.twig', [
+            'adress' => $this->getUser()->getAdresse(),
+        ]);
+        */
+    }
+
+
     #[Route('/{id}/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
     public function new(Panier $panier, Request $request, EntityManagerInterface $entityManager): Response
     {

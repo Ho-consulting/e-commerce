@@ -19,6 +19,7 @@ class AdresseType extends AbstractType
             ->add('address')
             ->add('postalCode')
             ->add('town')
+            ->add('phoneNumber')
             /*
             ->add('user', EntityType::class, [
                 'class' => User::class,

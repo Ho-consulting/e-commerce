@@ -49,13 +49,9 @@
                 <div class="col-lg-8">
                     <p class="text-muted h5">Livraison</p>
                 </div>
-
-                
                 <div class="col-lg-4">
                         <p class="text-muted h5 text-end">{{ panier.getDelivryMax }}€</p>
                 </div>
-                
-
                 <hr>
                 <div class="col-lg-8">
                     <p class="text-muted h5">Total</p>
@@ -65,8 +61,11 @@
                 </div>
             </div>
 
-            <a href="{{ path('app_commande_new', {'id': panier.id}) }}" class="btn btn-outline-dark w-100">Passer la commande</a>
+            <a href="{{ path('app_commande_adress') }}" class="btn btn-outline-dark w-100">Passer la commande</a>
 
+            {#
+                <a href="{{ path('app_commande_new', {'id': panier.id}) }}" class="btn btn-outline-dark w-100">Passer la commande</a>
+            #}
         </div>
     </div>
 
