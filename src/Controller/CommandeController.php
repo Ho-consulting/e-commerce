@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Adresse;
 use App\Entity\Commande;
 use App\Entity\Panier;
 use App\Form\CommandeType;
@@ -58,7 +59,9 @@ class CommandeController extends AbstractController
             }
 
             $commande->setUser($panier->getUser());
-            $commande->setAdresse($panier->getUser()->getAdresse());
+            $address = new Adresse();
+            $address = $panier->getUser()->getAdresse();
+            $commande->setAdresse($address);
             $panier->setUser(null);
             $entityManager->persist($commande);
             $entityManager->remove($panier);
@@ -106,6 +109,8 @@ class CommandeController extends AbstractController
             foreach ($commande->getArticles() as &$articlePanier) {
                 $commande->removeArticle($articlePanier);
             }
+            $commande->setUser(null);
+            $commande->setAdresse(null);
             $entityManager->remove($commande);
             $entityManager->flush();
         }

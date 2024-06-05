@@ -80,7 +80,7 @@ class AdresseType extends AbstractType
             ->add('phoneNumber', null, [
                 'label' => 'Téléphone',
                 'label' => false,
-                'attr' => ['placeholder' => 'Téléphone*'],
+                'attr' => ['placeholder' => 'Téléphone* 06.....'],
                 'required' => true,
                 'constraints' => [
                     new NotBlank([

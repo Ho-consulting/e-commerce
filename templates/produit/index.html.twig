@@ -18,7 +18,7 @@
                                 </a>
                                 <a class="text-center text-muted text-decoration-none" href="{{ path('app_produit_show', {id:produit.id}) }}"><h2 class="pt-3">{{ produit.name }}</h2></a>
                                 <p class="text-center text-muted  text-break"> {{ produit.description|u.truncate(35, '.......', false) }} </p>
-                                <p class="h5 pb-2 bold text-center"> {{ produit.prix }}€</p>
+                                <p class="h5 pb-2 bold text-center text-muted"> {{ produit.prix }}€</p>
 
                                 {#
                                 <div class="row mx-auto p-3">

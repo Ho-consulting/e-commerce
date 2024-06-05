@@ -34,7 +34,7 @@ class AdresseController extends AbstractController
             $entityManager->persist($adresse);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_commande_new', ['id' => $adresse->getUser()->getPanier()->getId() ], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_commande_adress', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('adresse/new.html.twig', [
@@ -60,7 +60,7 @@ class AdresseController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $adresse->setUser($this->getUser());
             $entityManager->flush();
-            return $this->redirectToRoute('app_commande_new', ['id' => $adresse->getUser()->getPanier()->getId() ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_commande_adress', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('adresse/edit.html.twig', [
