@@ -31,7 +31,10 @@ class Commande
     #[ORM\ManyToOne(inversedBy: 'commande')]
     private ?User $user = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\Column(nullable: true)]
+    private ?float $delivryMax = null;
+
+    #[ORM\ManyToOne(inversedBy: 'commande')]
     private ?Adresse $adresse = null;
 
     public function __construct()
@@ -106,6 +109,18 @@ class Commande
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDelivryMax(): ?float
+    {
+        return $this->delivryMax;
+    }
+
+    public function setDelivryMax(?float $delivryMax): static
+    {
+        $this->delivryMax = $delivryMax;
 
         return $this;
     }

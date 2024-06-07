@@ -3,6 +3,12 @@
 {% block title %}Commande{% endblock %}
 
 {% block body %}
+
+
+    <a class="btn btn-outline-dark" href="{{ path('app_commande_index') }}">< Liste des commandes</a>
+
+
+    <h1 class="text-center text-muted">Commande passée</h1>
     
     <div class="progress mt-5 col-md-10 mx-auto" role="progressbar" aria-label="Animated striped example" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
         <div class="progress-bar bg-success progress-bar-striped progress-bar-animated" style="width: 100%"></div>
@@ -11,44 +17,66 @@
 
     <div class="mt-3 mb-5 row col-11 mx-auto">
         <div class="col-3">
-            <b>Utilisateur connecté</b>
+            <b class="text-muted">Utilisateur connecté</b>
         </div>
 
         <div class="col-3 text-center">
-            <b>Adresse</b>
+            <b class="text-muted">Adresse</b>
         </div>
 
         <div class="col-3 text-center">
-            <b>Paiement</b>
+            <b class="text-muted">Paiement</b>
         </div>
 
         <div class="col-3 text-end">
-            <b>C'est fait</b>
+            <b class="text-muted">C'est fait</b>
         </div>
     </div>
 
-    <h1>Commande</h1>
+    <div class="row mt-5 mb-4">
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ commande.id }}</td>
-            </tr>
-            <tr>
-                <th>PrixTotal</th>
-                <td>{{ commande.prixTotal }}</td>
-            </tr>
-            <tr>
-                <th>CommandeDate</th>
-                <td>{{ commande.commandeDate ? commande.commandeDate|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="col-md-6 mt-5">
+            <h2 class="text-muted">Commande N° {{ commande.id }}</h2>
+        </div>
 
-    <a href="{{ path('app_commande_index') }}">back to list</a>
+        <div class="col-md-6 mt-5 text-end">
+            <h4 class="text-muted">Date : {{ commande.commandeDate ? commande.commandeDate|date('Y-m-d') : '' }}</h4>
+        </div>
 
-    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
+    </div>
 
-    {{ include('commande/_delete_form.html.twig') }}
+        
+
+
+
+    <div class="row mt-4">
+        <div class="col-lg-6 p-3">   
+            <h5 class="text-muted">ADRESSE DE LIVRAISON</h5> <hr>
+            <p class="text-muted">{{ commande.adresse.firstName }} {{ commande.adresse.lastName }}<br>
+            {{ commande.adresse.address }}<br>
+            {{ commande.adresse.postalCode }}<br> 
+            {{ commande.adresse.town }}<br>
+            {{ commande.adresse.phoneNumber }}
+            </p>
+        </div>
+        
+        <div class="col-lg-6 p-3">
+            <h5 class="text-muted text-end">Total</h5><hr> 
+            <div class="row">
+                <div class="col-lg-6">
+                    <p class="text-muted">Sous total</p>
+                    <p class="text-muted">Livraison</p>
+                    <b class="text-muted">Total</b>
+                </div>
+                <div class="col-lg-6 text-end">
+                    <p class="text-muted">{{ commande.prixTotal|round(2, 'floor') }}</p>
+                    <p class="text-muted">{{ commande.delivryMax }}</p>
+                    <b class="text-muted">{{ (commande.prixTotal + commande.delivryMax)|round(2, 'floor') }}</b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+   
 {% endblock %}

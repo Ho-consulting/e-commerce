@@ -91,6 +91,8 @@ class ProduitController extends AbstractController
             }
             
             $panier->setUser($this->getUser());
+            $panier->setPrixTotal($panier->getTotalPanier());
+            $panier->setDelivry($panier->getDelivryMax());
             $entityManager->persist($panier); 
             $entityManager->flush();
 

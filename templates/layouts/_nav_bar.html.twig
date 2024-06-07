@@ -18,28 +18,34 @@
       <div class="collapse navbar-collapse " id="navbarCollapse">
           <ul class="navbar-nav mb-2 ms-auto mb-md-0">
 
-              {% if is_granted('ROLE_ARTISAN') or is_granted('ROLE_COMPANY') %}
+            
+              {% if is_granted('ROLE_USER') or is_granted('ROLE_COMPANY') %}
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">Profil</b></a>
+                  <a class="nav-link active text-muted" aria-current="page" href="#"><b class="neutral_shade_med">Profil &nbsp</b></a>
                 </li>
               {% endif %}
+            
 
+              <li class="nav-item">
+                <a class="nav-link active text-muted" aria-current="page" href="{{ path('app_produit_index')}}"><b class="neutral_shade_med">Liste des produits</b></a>
+              </li>
               
 
-              {% if not is_granted('ROLE_USER') %}
+            {#  {% if not is_granted('ROLE_USER') %} #}
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#"><b class="neutral_shade_med">&nbsp Contact</b></a>
+                  <a class="nav-link active text-muted" aria-current="page" href="#"><b class="neutral_shade_med">&nbsp Contact</b></a>
                 </li>
-              {% endif %}
+            {#  {% endif %} #} 
 
 
-            {#
-              {% if is_granted('ROLE_ARTISAN') %}
+              
+              {# {% if is_granted('ROLE_ARTISAN') %} 
+              
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{{ path('app_subscription') }}"><b class="neutral_shade_med">Mon abonnement</b></a>
                 </li>
-              {% endif %} 
-            #}
+             {% endif %} #}
+            
               {% if is_granted('ROLE_ADMIN') %}
               {#
                 <li class="nav-item">
@@ -54,7 +60,7 @@
 
               {% if is_granted('ROLE_USER') and app.user.panier != null %}
                 <li class="nav-item">
-                  <a class="nav-link text-decoration-none btn" aria-current="page" href="{{ path('app_panier_show', {'id': app.user.panier.id}) }}"><b class="neutral_shade_med">Panier  &nbsp<span class="badge bg-primary">{{ app.user.panier.getArticlesPanier|length }}</span></b></a>
+                  <a class="nav-link text-decoration-none btn" aria-current="page" href="{{ path('app_panier_show', {'id': app.user.panier.id}) }}"><b class="neutral_shade_med">&nbsp Panier  &nbsp<span class="badge bg-primary">{{ app.user.panier.getArticlesPanier|length }}</span></b></a>
                 </li>
               {% endif %}
           </ul>

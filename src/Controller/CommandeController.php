@@ -58,10 +58,15 @@ class CommandeController extends AbstractController
                 $panier->removeArticlesPanier($articlePanier);
             }
 
+            
+
             $commande->setUser($panier->getUser());
             $address = new Adresse();
             $address = $panier->getUser()->getAdresse();
             $commande->setAdresse($address);
+            $commande->setPrixTotal($panier->getPrixTotal());
+            $commande->setDelivryMax($panier->getDelivry());
+            $commande->setCommandeDate(date_create());
             $panier->setUser(null);
             $entityManager->persist($commande);
             $entityManager->remove($panier);

@@ -4,11 +4,12 @@
 
 {% block body %}
 
-    <h2 class="text-muted mb-5">Mon panier ({{ pluralize(panier.getArticlesPanier|length,'Article','Articles') }})</h2>
+    <a class="btn btn-outline-dark" href="{{ path('app_produit_index') }}">< Liste des produits</a>
+    
+    <h2 class="text-muted mt-5 mb-5">Mon panier ({{ pluralize(panier.getArticlesPanier|length,'Article','Articles') }})</h2>
 
 
     <div class="row">
-
         <div class="col-md-6 p-3">
             {% for article in panier.getArticlesPanier %}
                 {% if article.getProduit.isAvailible %}
@@ -43,21 +44,21 @@
                     <p class="text-muted h5">{{ pluralize(panier.getArticlesPanier|length,'Article','Articles') }}</p>
                 </div>
                 <div class="col-lg-4">
-                    <p class="text-muted h5 text-end">{{ panier.getTotalPanier }}€</p>
+                    <p class="text-muted h5 text-end">{{ panier.getTotalPanier|round(2, 'floor') }}€</p>
                 </div>
                 <hr>
                 <div class="col-lg-8">
                     <p class="text-muted h5">Livraison</p>
                 </div>
                 <div class="col-lg-4">
-                        <p class="text-muted h5 text-end">{{ panier.getDelivryMax }}€</p>
+                    <p class="text-muted h5 text-end">{{ panier.getDelivryMax }}€</p>
                 </div>
                 <hr>
                 <div class="col-lg-8">
                     <p class="text-muted h5">Total</p>
                 </div>
                 <div class="col-lg-4">
-                    <p class="text-muted h5 text-end">{{ panier.getDelivryMax + panier.getTotalPanier }}€</p>
+                    <p class="text-muted h5 text-end">{{ (panier.getDelivryMax + panier.getTotalPanier)|round(2, 'floor') }}€</p>
                 </div>
             </div>
 

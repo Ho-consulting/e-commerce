@@ -24,6 +24,12 @@ class Panier
     #[ORM\OneToMany(targetEntity: ArticlesPanier::class, mappedBy: 'panier')]
     private Collection $articlesPanier;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $prixTotal = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $delivry = null;
+
     public function __construct()
     {
         $this->articlesPanier = new ArrayCollection();
@@ -111,5 +117,31 @@ class Panier
         }
         return $max;
     }
+
+    public function getPrixTotal(): ?float
+    {
+        return $this->prixTotal;
+    }
+
+    public function setPrixTotal(?float $prixTotal): static
+    {
+        $this->prixTotal = $prixTotal;
+
+        return $this;
+    }
+
+    public function getDelivry(): ?float
+    {
+        return $this->delivry;
+    }
+
+    public function setDelivry(?float $delivry): static
+    {
+        $this->delivry = $delivry;
+
+        return $this;
+    }
+
+    
 
 }
