@@ -57,6 +57,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
     private ?Adresse $adresse = null;
 
+    #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]
+    private ?Review $review = null;
+
   
     public function __construct()
     {
@@ -236,6 +239,28 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
 
         $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getReview(): ?Review
+    {
+        return $this->review;
+    }
+
+    public function setReview(?Review $review): static
+    {
+        // unset the owning side of the relation if necessary
+        if ($review === null && $this->review !== null) {
+            $this->review->setUser(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($review !== null && $review->getUser() !== $this) {
+            $review->setUser($this);
+        }
+
+        $this->review = $review;
 
         return $this;
     }

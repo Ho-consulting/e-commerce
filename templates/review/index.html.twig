@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reviews{% endblock %}
+
+
+{% block body %}
+
+    <div class="container pt-5">
+        <div class="m-5">
+
+            {% if reviews %}
+                <h1 class="text-center text-muted mt-5 mb-3">Ils ont déja succombé à la qualité de notre service</h1>
+                {% if app.user %}
+                    {% if reviews_User == null %}
+                        <div class="mx-auto text-center">
+                            <a href="{{ path('app_review_new') }}" class="btn btn_primary_dark mb-3 ">Laisser nous un avis.</a>
+                        </div>
+                    {% else %}
+                        <p class="text-center text-muted mb-5">Retrouvez ci-dessous tous les retours d'expériences avec nous.</p>
+                    {% endif %}
+                {% else %}
+                    <p class="text-center text-muted mb-5">Connectez vous et parlez nous de votre expérience avec nous.</p>
+                {% endif %}
+            {% endif %}
+
+            <div class="row mt-5">
+                    {% for review in reviews %}    
+                        <table class="mt-3 mb-3">
+                            <tr>
+                                <th style="width:120px; height:100px;" rowspan ="3">
+                                    <img style="width: 75px; height: 75px; " class="mt-3 img-circle" src="{{ (asset('images/my_avatar.png')) }}" alt="Image_user">
+                                </th>
+                                <th style="vertical-align: top;">   
+                                    <b class="text-muted">{{ review.getUser.getFirstName }} {{ review.getUser.getLastName }}</b>
+                                </th>
+                                <th style="vertical-align: top; text-align:right;">
+                                    {{ review.createdAt ? review.createdAt|date('Y-m-d') : '' }}
+                                </th>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    {% if review.rating <= 1 %}
+                                       <b class="starRating">★</b>&nbsp<b>{{ review.rating }}/5</b>
+                                    {% endif %}
+
+                                    {% if review.rating == 2 %}
+                                        <b class="starRating">★★</b>&nbsp<b>{{ review.rating }}/5</b>
+                                    {% endif %}
+
+                                    {% if review.rating == 3 %}
+                                        <b class="starRating">★★★</b>&nbsp<b>{{ review.rating }}/5</b>
+                                    {% endif %}
+
+                                    {% if review.rating == 4 %}
+                                        <b class="starRating">★★★★</b>&nbsp<b>{{ review.rating }}/5</b>
+                                    {% endif %}
+
+                                    {% if review.rating == 5 %}
+                                        <b class="starRating">★★★★★</b>&nbsp<b>{{ review.rating }}/5</b>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width:1000px;">
+                                    <p class="text-break"> {{ review.comment }} </p>
+                                </td>
+                                {% if is_granted('ROLE_ADMIN')  %}
+                                    <td>
+                                        {{ include('review/_delete_form.html.twig') }}
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                {% else %}
+                    <div class="text-center mx-auto ">
+                        <h1 class="text-center font-primary-darker-bold mt-5 mb-3">Aucun avis jusqu'a présent </h1>
+                        
+                        {% if is_granted('ROLE_USER') %}
+                            <a href="{{ path('app_review_new') }}" class="btn btn_primary_dark mb-3 ">Soyez le premier à nous noter</a>
+                        {% else %}
+                              <p class="text-center font-secondary-bold mb-5">Connectez vous et soyez le premier à nous parler de votre expérience.</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

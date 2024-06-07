@@ -13,3 +13,10 @@
     font-weight: bold;
 }
 
+.background-grey-light {
+    background-color: #FAFAFA;
+}
+
+.starRating {
+    color:orange;
+}
