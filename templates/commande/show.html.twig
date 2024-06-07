@@ -45,13 +45,10 @@
 
     </div>
 
-        
-
-
 
     <div class="row mt-4">
         <div class="col-lg-6 p-3">   
-            <h5 class="text-muted">ADRESSE DE LIVRAISON</h5> <hr>
+            <h5 class="text-muted">Adresse de livraison</h5> <hr>
             <p class="text-muted">{{ commande.adresse.firstName }} {{ commande.adresse.lastName }}<br>
             {{ commande.adresse.address }}<br>
             {{ commande.adresse.postalCode }}<br> 
@@ -60,7 +57,7 @@
             </p>
         </div>
         
-        <div class="col-lg-6 p-3">
+        <div class="col-lg-6 p-3 mb-5">
             <h5 class="text-muted text-end">Total</h5><hr> 
             <div class="row">
                 <div class="col-lg-6">
@@ -69,14 +66,36 @@
                     <b class="text-muted">Total</b>
                 </div>
                 <div class="col-lg-6 text-end">
-                    <p class="text-muted">{{ commande.prixTotal|round(2, 'floor') }}</p>
-                    <p class="text-muted">{{ commande.delivryMax }}</p>
-                    <b class="text-muted">{{ (commande.prixTotal + commande.delivryMax)|round(2, 'floor') }}</b>
+                    <p class="text-muted">{{ commande.prixTotal|round(2, 'floor') }}€</p>
+                    <p class="text-muted">{{ commande.delivryMax }}€</p>
+                    <b class="text-muted">{{ (commande.prixTotal + commande.delivryMax)|round(2, 'floor') }}€</b>
                 </div>
             </div>
         </div>
     </div>
 
 
+    <div class="row mt-5">
+        <h5 class="text-muted">Articles commandés</h5> <hr>
+        {% for article in commande.getArticles %}
+            {% if article.getProduit.isAvailible %}
+                <div class="row">
+                    <div class="col-lg-3 p-3">
+                        <img class="img-fluid" src="{{ vich_uploader_asset(article.getProduit, 'imageFile') }}" alt="image_produit" width="100%" height="100%">
+                    </div>
+
+                    <div class="col-lg-6 p-3">
+                        <p class="text-muted h5"><b>{{ article.getProduit.getName }}</b></p>
+                        <p class="bold text-muted h6">Quantité: {{ article.quantity }}</p>
+                    </div>
+
+                    <div class="col-lg-3 p-3">
+                        <p class="h5  text-muted mb-5 text-end">{{ article.getProduit.getPrix }}€</p> 
+                    </div>
+                </div>
+                <hr>
+            {% endif %}
+        {% endfor %}
+    </div>
    
 {% endblock %}

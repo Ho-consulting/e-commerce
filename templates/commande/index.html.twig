@@ -3,34 +3,34 @@
 {% block title %}Commande index{% endblock %}
 
 {% block body %}
-    <h1>Commande index</h1>
+    
+    
+    
+        <h1 class="text-center text-muted">Vos commandes</h1>
+        <p class="text-muted text-center mb-5">Retrouver toutes vos commandes ci-dessous</p>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>PrixTotal</th>
-                <th>CommandeDate</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+
+    
         {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.id }}</td>
-                <td>{{ commande.prixTotal }}</td>
-                <td>{{ commande.commandeDate ? commande.commandeDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_commande_show', {'id': commande.id}) }}">show</a>
-                    <a href="{{ path('app_commande_edit', {'id': commande.id}) }}">edit</a>
-                </td>
-            </tr>
+
+            <div class="row grey_zone border p-3 mb-5">
+                <div class="col-md-9">
+                    <h5 class="text-muted">Commande N° {{ commande.id }}</h5>
+                    <p class="text-muted mt-3"><b>Date de la commande :</b> {{ commande.commandeDate ? commande.commandeDate|date('Y-m-d') : '' }}</p>
+                    <p class="text-muted"><b>Total :</b> {{ commande.prixTotal }}€</p>
+                </div>
+
+                <div class="col-md-3">
+                    <a class="btn btn-outline-dark mb-3 mt-3 w-100" href="{{ path('app_commande_show', {'id': commande.id}) }}">Consulter la commande</a>
+                    <a class="btn btn-dark mb-3 w-100" href="#">Générer une facture</a>
+                </div>
+            </div>
+
         {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+            <h3 class="text-center text-muted mt-5 mb-3">Aucune commande</h3>
+            <p class="text-muted text-center mb-5">Vous n'avez pas de commande pour le moment</p>
         {% endfor %}
-        </tbody>
-    </table>
+
+
 
 {% endblock %}

@@ -9,7 +9,7 @@
     <h2 class="text-muted mt-5 mb-5">Mon panier ({{ pluralize(panier.getArticlesPanier|length,'Article','Articles') }})</h2>
 
 
-    <div class="row">
+    <div class="row"> 
         <div class="col-md-6 p-3">
             {% for article in panier.getArticlesPanier %}
                 {% if article.getProduit.isAvailible %}
@@ -26,11 +26,9 @@
                         <div class="col-lg-3 p-3">
                             <p class="h3 bold text-muted mb-5 text-end">{{ article.getProduit.getPrix }}€</p> 
                             <a class="btn btn-outline-danger w-100" href="{{ path('app_article_remove', {'id': article.id}) }}">Supprimer</a>
-
                         </div>
                     </div>
                     <hr>
-
                 {% endif %}
             {% endfor %}
         </div>
