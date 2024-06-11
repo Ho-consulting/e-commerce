@@ -3,17 +3,18 @@
 namespace App\Controller;
 
 use App\Entity\ArticlesPanier;
-use App\Form\ArticlesPanierType;
-use App\Repository\ArticlesPanierRepository;
+//use App\Form\ArticlesPanierType;
+//use App\Repository\ArticlesPanierRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
+//use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/articles/panier')]
 class ArticlesPanierController extends AbstractController
 {
+    /*
     #[Route('/', name: 'app_articles_panier_index', methods: ['GET'])]
     public function index(ArticlesPanierRepository $articlesPanierRepository): Response
     {
@@ -21,7 +22,10 @@ class ArticlesPanierController extends AbstractController
             'articles_paniers' => $articlesPanierRepository->findAll(),
         ]);
     }
+    */
 
+
+    /*
     #[Route('/new', name: 'app_articles_panier_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -41,7 +45,10 @@ class ArticlesPanierController extends AbstractController
             'form' => $form,
         ]);
     }
+    */
 
+
+    /*
     #[Route('/{id}', name: 'app_articles_panier_show', methods: ['GET'])]
     public function show(ArticlesPanier $articlesPanier): Response
     {
@@ -49,7 +56,9 @@ class ArticlesPanierController extends AbstractController
             'articles_panier' => $articlesPanier,
         ]);
     }
+    */
 
+    /*
     #[Route('/{id}/edit', name: 'app_articles_panier_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, ArticlesPanier $articlesPanier, EntityManagerInterface $entityManager): Response
     {
@@ -67,6 +76,7 @@ class ArticlesPanierController extends AbstractController
             'form' => $form,
         ]);
     }
+    */
 
     #[Route('/{id}/remove', name: 'app_article_remove', methods: ['GET','POST'])]
     public function removeArticle(ArticlesPanier $article, EntityManagerInterface $entityManager): Response

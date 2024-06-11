@@ -124,6 +124,7 @@ class ProduitController extends AbstractController
     }
 
 
+    /*
     #[Route('/{id}/availible', name: 'app_produit_not_availible')]
     public function notavailible(Produit $produit, EntityManagerInterface $entityManager): Response
     {
@@ -133,6 +134,7 @@ class ProduitController extends AbstractController
 
         return $this->redirectToRoute('app_produit_index', [], Response::HTTP_SEE_OTHER); 
     }
+    */
 
 
     /*

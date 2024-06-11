@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\Adresse;
 use App\Entity\Commande;
 use App\Entity\Panier;
-use App\Form\CommandeType;
+//use App\Form\CommandeType;
 use App\Repository\CommandeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -87,6 +87,7 @@ class CommandeController extends AbstractController
     }
 
 
+    /*
     #[Route('/{id}/edit', name: 'app_commande_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {
@@ -104,8 +105,11 @@ class CommandeController extends AbstractController
             'form' => $form,
         ]);
     }
+    */
 
 
+    // présence temporaire
+    
     #[Route('/{id}', name: 'app_commande_delete', methods: ['POST'])]
     public function delete(Request $request, Commande $commande, EntityManagerInterface $entityManager): Response
     {

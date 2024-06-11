@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Adresse;
 use App\Form\AdresseType;
-use App\Repository\AdresseRepository;
+//use App\Repository\AdresseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,6 +14,8 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/adresse')]
 class AdresseController extends AbstractController
 {
+    
+    /*
     #[Route('/', name: 'app_adresse_index', methods: ['GET'])]
     public function index(AdresseRepository $adresseRepository): Response
     {
@@ -21,6 +23,7 @@ class AdresseController extends AbstractController
             'adresses' => $adresseRepository->findAll(),
         ]);
     }
+    */
 
     #[Route('/new', name: 'app_adresse_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
@@ -43,6 +46,7 @@ class AdresseController extends AbstractController
         ]);
     }
 
+    /*
     #[Route('/{id}', name: 'app_adresse_show', methods: ['GET'])]
     public function show(Adresse $adresse): Response
     {
@@ -50,6 +54,7 @@ class AdresseController extends AbstractController
             'adresse' => $adresse,
         ]);
     }
+    */
 
     #[Route('/{id}/edit', name: 'app_adresse_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Adresse $adresse, EntityManagerInterface $entityManager): Response
@@ -70,6 +75,7 @@ class AdresseController extends AbstractController
         
     }
 
+    /*
     #[Route('/{id}', name: 'app_adresse_delete', methods: ['POST'])]
     public function delete(Request $request, Adresse $adresse, EntityManagerInterface $entityManager): Response
     {
@@ -80,5 +86,6 @@ class AdresseController extends AbstractController
 
         return $this->redirectToRoute('app_adresse_index', [], Response::HTTP_SEE_OTHER);
     }
+        */
     
 }
