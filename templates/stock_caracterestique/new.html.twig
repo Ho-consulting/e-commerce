@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New StockCaracterestique{% endblock %}
+
+{% block body %}
+    <h1>Create new StockCaracterestique</h1>
+
+    {{ include('stock_caracterestique/_form.html.twig') }}
+
+    <a href="{{ path('app_stock_caracterestique_index') }}">back to list</a>
+{% endblock %}

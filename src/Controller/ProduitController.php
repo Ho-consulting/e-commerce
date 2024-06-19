@@ -58,6 +58,8 @@ class ProduitController extends AbstractController
         ]);
     }
 
+    // ************************************************ intervention ************************************************ 
+
     #[Route('/{id}', name: 'app_produit_show', methods: ['GET', 'POST'])]
     public function show(Produit $produit, Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -103,6 +105,8 @@ class ProduitController extends AbstractController
             'form' => $form,
         ]);
     }
+    // ************************************************ intervention ************************************************
+
 
 
     #[Route('/{id}/edit', name: 'app_produit_edit', methods: ['GET', 'POST'])]

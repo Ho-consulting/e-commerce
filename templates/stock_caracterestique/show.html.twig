@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}StockCaracterestique{% endblock %}
+
+{% block body %}
+    <h1>StockCaracterestique</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ stock_caracterestique.id }}</td>
+            </tr>
+            <tr>
+                <th>StockQuantite</th>
+                <td>{{ stock_caracterestique.stockQuantite }}</td>
+            </tr>
+            <tr>
+                <th>Caracterestique</th>
+                <td>{{ stock_caracterestique.caracterestique }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_stock_caracterestique_index') }}">back to list</a>
+
+    <a href="{{ path('app_stock_caracterestique_edit', {'id': stock_caracterestique.id}) }}">edit</a>
+
+    {{ include('stock_caracterestique/_delete_form.html.twig') }}
+{% endblock %}
