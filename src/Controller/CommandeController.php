@@ -44,8 +44,6 @@ class CommandeController extends AbstractController
     }
 
 
-    // *************************************** Intervention ***************************************
-
     #[Route('/{id}/new', name: 'app_commande_new', methods: ['GET', 'POST'])]
     public function new(Panier $panier, EntityManagerInterface $entityManager): Response
     {
@@ -59,6 +57,8 @@ class CommandeController extends AbstractController
                 }
                 $panier->removeArticlesPanier($articlePanier);
             }
+
+            
 
             $commande->setUser($panier->getUser());
             $address = new Adresse();
@@ -76,10 +76,6 @@ class CommandeController extends AbstractController
             
             return $this->redirectToRoute('app_commande_show', ['id' => $commande->getId()], Response::HTTP_SEE_OTHER);
     }
-    
-    // *************************************** Intervention ***************************************
-
-
 
 
     #[Route('/{id}', name: 'app_commande_show', methods: ['GET'])]

@@ -64,9 +64,6 @@ class Produit
     #[ORM\ManyToOne(inversedBy: 'produit')]
     private ?Delivry $delivry = null;
 
-    #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
-    private ?StockCaracterestique $stockCaracterestique = null;
-
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -260,28 +257,6 @@ class Produit
     public function setDelivry(?Delivry $delivry): static
     {
         $this->delivry = $delivry;
-
-        return $this;
-    }
-
-    public function getStockCaracterestique(): ?StockCaracterestique
-    {
-        return $this->stockCaracterestique;
-    }
-
-    public function setStockCaracterestique(?StockCaracterestique $stockCaracterestique): static
-    {
-        // unset the owning side of the relation if necessary
-        if ($stockCaracterestique === null && $this->stockCaracterestique !== null) {
-            $this->stockCaracterestique->setProduit(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($stockCaracterestique !== null && $stockCaracterestique->getProduit() !== $this) {
-            $stockCaracterestique->setProduit($this);
-        }
-
-        $this->stockCaracterestique = $stockCaracterestique;
 
         return $this;
     }
